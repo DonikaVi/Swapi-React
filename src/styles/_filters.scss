@@ -1,0 +1,108 @@
+$blue: #0066ff;
+
+.filters {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 26px 32px 124px 32px;
+  margin-top: 31px;
+  position: relative;
+
+  &-apply {
+    text-align: center;
+    border: none;
+    background: #ffffff;
+    color: $blue;
+    font-size: 14px;
+    line-height: 16px;
+    display: block;
+    margin: 0 auto 42px;
+    text-transform: uppercase;
+    font-family: "Courier Prime", monospace;
+  }
+
+  &-pilots {
+    &-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 42px;
+      margin-bottom: 32px;
+      font-family: "Archivo Black", sans-serif;
+    }
+    &-title {
+      font-size: 22px;
+      line-height: 24px;
+      color: #212121;
+    }
+
+    &-count {
+      color: $blue;
+      font-size: 12px;
+      line-height: 13px;
+    }
+    &-load-more {
+      margin-top: 28px;
+      color: $blue;
+      font-size: 14px;
+      font-family: "Courier Prime", monospace;
+    }
+  }
+  &-item {
+    margin-top: 32px;
+
+    &-title {
+      font-family: "Archivo Black", sans-serif;
+      font-weight: normal;
+      font-size: 22px;
+      line-height: 24px;
+    }
+  }
+  &-sliders {
+  }
+  &-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 34px;
+
+    &-input {
+      input {
+        text-align: center;
+        width: 55px;
+        height: 27px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        border-radius: 3px;
+        font-family: "Courier Prime", monospace;
+        font-size: 14px;
+        color: $blue;
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    & {
+      margin-left: 100px;
+      margin-right: 35px;
+    }
+    &:before {
+      position: absolute;
+      left: -60px;
+      top: 80px;
+      content: '';
+      background-image: url("./images/Our_starships.svg");
+      background-repeat: no-repeat;
+      width: 58px;
+      height: 207px;
+      display: block;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-family: "Archivo Black", sans-serif;
+      font-size: 24px;
+      line-height: 26px;
+    }
+  }
+}

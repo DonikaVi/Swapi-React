@@ -1,0 +1,172 @@
+.header {
+  &-menu {
+    display: none;
+
+    &-open {
+      display: flex;
+      margin-top: 25px;
+      justify-content: center;
+
+      .header-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      a {
+        padding: 10px 0;
+        display: block;
+        color: #000000;
+        font-family: "Courier Prime", monospace;
+        font-size: 16px;
+        line-height: 18px;
+        text-decoration: none;
+      }
+    }
+  }
+  .header-signup {
+    text-transform: uppercase;
+  }
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo-url {
+      text-decoration: none;
+    }
+
+    .burger {
+      background-image: url("./images/menu.svg");
+      background-repeat: no-repeat;
+      width: 27px;
+      height: 18px;
+
+      &-close {
+        height: 30px;
+        background-image: url("./images/close.svg");
+      }
+    }
+  }
+  &-bottom {
+    margin-top: 45px;
+    position: relative;
+    background: #000000;
+    border-radius: 20px;
+    height: 477px;
+    display: flex;
+    align-items: flex-end;
+
+    &-soldier {
+      background-image: url("./images/tr.svg");
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    &-text {
+      font-size: 60px;
+      line-height: 78.1%;
+      z-index: 2;
+      text-align: center;
+      margin: 0 auto;
+      color: #fff;
+    }
+  }
+  &.starship-header {
+    .header-bottom-text {
+      z-index: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-top {
+      justify-content: flex-start;
+    }
+
+    &-menu {
+      display: block;
+      margin-left: 124px;
+      &-list {
+        display: flex;
+        list-style: none;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 0;
+        margin: 0;
+        &-item {
+          list-style: none;
+          padding-right: 19px;
+          padding-left: 19px;
+          font-size: 16px;
+          line-height: 18px;
+          margin-right: 28px;
+          a {
+            color: #000000;
+            font-family: "Courier Prime", monospace;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    &-top {
+      .burger {
+        display: none;
+      }
+    }
+  }
+  @media (min-width: 1200px) {
+    .header-bottom{
+
+      &-soldier{
+        background-position: left;
+        position: absolute;
+        top: auto;
+        height: 100%;
+        bottom: -115px;
+        background-size: 27%;
+      }
+      &-text{
+        position: absolute;
+        right: 0;
+        bottom: -30px;
+        text-align: left;
+        font-weight: bold;
+        color: #FFFFFF;
+        max-width: 749px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: 0;
+        font-size: 132px;
+
+      }
+    }
+  }
+}
+
+.header-signup {
+  margin-left: auto;
+  border: none;
+  background: #000000;
+  display: block;
+  color: #fff;
+  font-family: "Courier Prime", monospace;
+  font-size: 16px;
+  line-height: 18px;
+  max-width: 160px;
+  height: 48px;
+  width: 100%;
+  text-align: center;
+
+  &.mob {
+    margin: 0 auto;
+    margin-top: 45px;
+  }
+}

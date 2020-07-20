@@ -1,0 +1,111 @@
+@import "starship";
+
+$blue: #0066ff;
+$black: #000000;
+$white: #ffffff;
+
+.starship-desc {
+  margin-bottom: 194px;
+}
+
+.starship-header {
+  .header-bottom {
+    height: 262px;
+    text-align: center;
+
+    &-soldier {
+      background-size: contain;
+      width: 244px;
+      left: 0;
+      right: 0;
+      bottom: -60px;
+      margin: 0 auto;
+    }
+    &-text {
+      bottom: auto;
+      top: auto;
+      left: auto;
+      right: auto;
+      text-align: center;
+      font-size: 132px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+  }
+}
+
+.starship-desc-item {
+  &-wrap {
+    padding: 26px 31px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 195px;
+    background: $white;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 11px;
+    margin: 31px 0 25px 0;
+  }
+
+  &-title {
+    font-family: "Courier Prime", monospace;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: $black;
+  }
+
+  &-value {
+    font-family: "Archivo Black", sans-serif;
+    color: $blue;
+    line-height: 44px;
+    font-size: 40px;
+  }
+}
+.copy-url {
+  color: $blue;
+  font-family: "Courier Prime", monospace;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+@media (min-width: 1200px) {
+  .starship-page {
+    .starship {
+      display: flex;
+      justify-content: space-between;
+      &-top {
+        flex: 0 0 20%;
+        max-width: 20%;
+      }
+      &-info {
+        order: -1;
+        flex: 0 0 70%;
+        max-width: 70%;
+      }
+      &-desc-item {
+        &-wrap {
+          height: 250px;
+        }
+      }
+    }
+
+    .header {
+      margin-bottom: 50px;
+    }
+    .footer {
+      margin-top: 250px;
+      .footer-blue:before {
+        background-image: url("./images/death-star.svg");
+        background-size: 100%;
+        top: -115px;
+        right: -20px;
+        width: 750px;
+        height: 900px;
+      }
+    }
+  }
+}

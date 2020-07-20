@@ -1,0 +1,58 @@
+.starship {
+  a {
+    text-decoration: none;
+  }
+  font-family: 'Courier Prime', monospace;
+  &-top {
+    margin-top: 37px;
+    height: 220px;
+    background: #212121;
+    border-radius: 11px;
+    position: relative;
+  }
+
+  &-small {
+    position: absolute;
+    bottom: 24px;
+    left: 23px;
+    font-family: "Archivo Black", sans-serif;
+
+    .title {
+      font-size: 45px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .sub-title {
+      margin-top: 4px;
+      color: #FFFFFF;
+      font-size: 24px;
+      text-transform: uppercase;
+
+    }
+
+  }
+
+  &-info {
+    margin: 32px 0;
+
+  &-p {
+    font-size: 22px;
+    text-transform: capitalize;
+    line-height: 25px;
+    color: #000000;
+    font-weight: bold;
+  }
+
+    &-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 18px;
+      color: #000000;
+
+      &-li {
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
