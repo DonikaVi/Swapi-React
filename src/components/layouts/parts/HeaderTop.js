@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../../../styles/images/logo.svg";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-function HeaderTop({ changeMenu, hideBtn, menuOpen }) {
+function HeaderTop({ changeMenu, menuOpen }) {
   const { width } = useWindowDimensions();
   const [showMenuDesk, setShowMenu] = useState(false);
 
