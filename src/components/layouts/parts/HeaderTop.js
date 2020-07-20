@@ -38,10 +38,10 @@ function HeaderTop({ changeMenu, menuOpen }) {
     );
   };
   return (
-    <div>
+    <>
       <div className="header-top">
         <a className="logo-url" href="/">
-          <img src={logo} alt="" />
+          <img src={logo} alt="Home page" />
         </a>
         <div className="header-right">
           <div
@@ -57,7 +57,7 @@ function HeaderTop({ changeMenu, menuOpen }) {
         ) : null}
       </div>
       {!showMenuDesk ? <Menu /> : null}
-    </div>
+    </>
   );
 }
 

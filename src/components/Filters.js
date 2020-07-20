@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Slider from "@material-ui/core/Slider";
-import "../styles/_filters.scss";
 import { addPeopleFilters, applyFilters } from "../redux/actions";
+import RangeSlider from "./parts/RangeSlider";
+import "../styles/_filters.scss";
 
-function getAllStarwarsPeople({ pilots, addPeopleFilters, count }) {
+function getAllStarwarsPeople({ props, handler }) {
+  const { pilots, addPeopleFilters } = props;
+  handler(true);
   const numberOfPagesLeft = Math.ceil((pilots.count - 1) / 10);
   let promises = [];
   let people = [];
@@ -34,27 +36,31 @@ function getAllStarwarsPeople({ pilots, addPeopleFilters, count }) {
       return people;
     })
     .catch(function (error) {
+      handler(false);
       // if there's an error, log it
       console.log(error);
     });
 }
 
 function Filters(props) {
-  const [pilots, setPilots] = React.useState([]);
-  const { people } = props;
+  const [pilots, setPilots] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const { people, applyFiltersHandler, count } = props;
   useEffect(() => {
     setPilots(people);
   }, [people]);
 
   /**
-   * Crew slider
+   * Slider handler
+   * @param event
+   * @param newValue
+   * @param handler
+   * @param origValue
+   * @returns {*}
    */
-
-  const [sliderCrew, setCrewValue] = React.useState([5, 100000]);
-
-  const sliderCrewChange = (event, newValue) => {
+  const sliderChange = ({ event, newValue, handler, origValue }) => {
     if (event.type === "touchmove" || event.type === "mousemove") {
-      return setCrewValue(newValue);
+      return handler(newValue);
     } else {
       const {
         target: { value },
@@ -62,38 +68,19 @@ function Filters(props) {
       if (value) {
         const number = Number.parseInt(value);
         if (newValue === "start") {
-          return setCrewValue([number, sliderCrew[1]]);
+          return handler([number, origValue[1]]);
         }
-        setCrewValue([sliderCrew[0], number]);
+        handler([origValue[0], number]);
       }
     }
   };
-
-  /**
-   * Capacity slider
-   */
-  const [sliderCapacity, setCapacityValue] = React.useState([5, 500000]);
-
-  const sliderCapacityChange = (event, newValue) => {
-    if (event.type === "touchmove" || event.type === "mousemove") {
-      return setCapacityValue(newValue);
-    } else {
-      const {
-        target: { value },
-      } = event;
-
-      if (value) {
-        const number = Number.parseInt(value);
-        if (newValue === "start") {
-          return setCapacityValue([number, sliderCapacity[1]]);
-        }
-        setCapacityValue([sliderCapacity[0], number]);
-      }
-    }
-  };
+  // Crew
+  const [sliderCrew, setCrewValue] = React.useState([5, 10000]);
+  // Capacity
+  const [sliderCapacity, setCapacityValue] = React.useState([5, 50000]);
 
   const loadMore = async () => {
-    await getAllStarwarsPeople(props);
+    await getAllStarwarsPeople({ props, handler: setLoaded });
   };
 
   const handleChange = (event) => {
@@ -104,8 +91,8 @@ function Filters(props) {
     setPilots(pilotState);
   };
 
-  const applyFilters = () => {
-    props.applyFilters({
+  const onApplyFiltersHandler = () => {
+    applyFiltersHandler({
       crew: sliderCrew,
       capacity: sliderCapacity,
       people: pilots,
@@ -114,8 +101,12 @@ function Filters(props) {
 
   return (
     <div className="filters">
-      <button onClick={applyFilters} type="button" className="filters-apply">
-        Filters apply ({props.count})
+      <button
+        onClick={onApplyFiltersHandler}
+        type="button"
+        className="filters-apply"
+      >
+        Filters apply ({count})
       </button>
       <div className="filters-pilots">
         <div className="filters-pilots-info">
@@ -140,9 +131,15 @@ function Filters(props) {
             );
           })}
         </FormGroup>
-        <div onClick={loadMore} className="filters-pilots-load-more">
-          View All
-        </div>
+        {!loaded && (
+          <div
+            onClick={loadMore}
+            disabled={loaded}
+            className="filters-pilots-load-more"
+          >
+            View All
+          </div>
+        )}
       </div>
       <div className="filters-item">
         <div className="filters-item-title">Crew size</div>
@@ -150,25 +147,45 @@ function Filters(props) {
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) => sliderCrewChange(e, "start")}
+              onChange={(e) =>
+                sliderChange({
+                  event: e,
+                  newValue: "start",
+                  handler: setCrewValue,
+                  origValue: sliderCrew,
+                })
+              }
               value={sliderCrew[0]}
             />
           </div>
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) => sliderCrewChange(e, "end")}
+              onChange={(e) =>
+                sliderChange({
+                  event: e,
+                  newValue: "end",
+                  handler: setCrewValue,
+                  origValue: sliderCrew,
+                })
+              }
               value={sliderCrew[1]}
             />
           </div>
         </div>
         <div className="filters-slider">
-          <Slider
+          <RangeSlider
+            value={sliderCrew}
             min={0}
             max={500000}
-            value={sliderCrew}
-            onChange={sliderCrewChange}
-            valueLabelDisplay="auto"
+            handleChange={(event, newValue) =>
+              sliderChange({
+                origValue: sliderCrew,
+                event,
+                handler: setCrewValue,
+                newValue: newValue,
+              })
+            }
           />
         </div>
       </div>
@@ -178,27 +195,45 @@ function Filters(props) {
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) => sliderCapacityChange(e, "start")}
+              onChange={(e) =>
+                sliderChange({
+                  event: e,
+                  newValue: "start",
+                  handler: setCapacityValue,
+                  origValue: sliderCapacity,
+                })
+              }
               value={sliderCapacity[0]}
             />
           </div>
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) => sliderCapacityChange(e, "end")}
+              onChange={(e) =>
+                sliderChange({
+                  event: e,
+                  handler: setCapacityValue,
+                  newValue: "end",
+                  origValue: sliderCapacity,
+                })
+              }
               value={sliderCapacity[1]}
             />
           </div>
         </div>
-        <div className="filters-slider">
-          <Slider
-            min={0}
-            max={1000000000000}
-            value={sliderCapacity}
-            onChange={sliderCapacityChange}
-            valueLabelDisplay="auto"
-          />
-        </div>
+        <RangeSlider
+          value={sliderCapacity}
+          min={0}
+          max={1000000000000}
+          handleChange={(event, newValue) =>
+            sliderChange({
+              origValue: sliderCapacity,
+              event,
+              handler: setCapacityValue,
+              newValue: newValue,
+            })
+          }
+        />
       </div>
     </div>
   );
@@ -219,7 +254,7 @@ const mapDispatchToProps = (dispatch) => {
     addPeopleFilters: (data) => {
       dispatch(addPeopleFilters(data));
     },
-    applyFilters: (data) => {
+    applyFiltersHandler: (data) => {
       dispatch(applyFilters(data));
     },
   };

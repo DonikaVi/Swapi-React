@@ -47,6 +47,10 @@ $blue: #0066ff;
       color: $blue;
       font-size: 14px;
       font-family: "Courier Prime", monospace;
+      cursor: pointer;
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
   }
   &-item {

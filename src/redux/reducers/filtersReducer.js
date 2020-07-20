@@ -2,8 +2,8 @@ import {APPLY_FILTERS, CHANGE_FILTER_BY, GET_PEOPLE_FILTERS} from "../constants"
 
 const initialState = {
   people: [],
-  crew: [0, 100000],
-  capacity: [0, 500000],
+  crew: [1, 100000],
+  capacity: [1, 500000],
   filterBy: 'crew'
 };
 export default function filters(state = initialState, action) {

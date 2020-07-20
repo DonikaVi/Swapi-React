@@ -7,7 +7,7 @@ import MobileMenu from "../MobileMenu";
 
 function Wrapper({ children, headerClass, headerText, changeMenu, menuOpen }) {
   return (
-    <div>
+    <>
       {menuOpen ? (
         <MobileMenu changeMenu={changeMenu} menuOpen={menuOpen} />
       ) : (
@@ -21,7 +21,7 @@ function Wrapper({ children, headerClass, headerText, changeMenu, menuOpen }) {
           <Footer />
         </>
       )}
-    </div>
+    </>
   );
 }
 
