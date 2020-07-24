@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/DonikaVi/Swapi_React/static/css/main.cd79bc50.chunk.css",
+    "main.js": "/DonikaVi/Swapi_React/static/js/main.605bbe87.chunk.js",
+    "main.js.map": "/DonikaVi/Swapi_React/static/js/main.605bbe87.chunk.js.map",
+    "runtime-main.js": "/DonikaVi/Swapi_React/static/js/runtime-main.f1846db4.js",
+    "runtime-main.js.map": "/DonikaVi/Swapi_React/static/js/runtime-main.f1846db4.js.map",
+    "static/js/2.27b0f46f.chunk.js": "/DonikaVi/Swapi_React/static/js/2.27b0f46f.chunk.js",
+    "static/js/2.27b0f46f.chunk.js.map": "/DonikaVi/Swapi_React/static/js/2.27b0f46f.chunk.js.map",
+    "index.html": "/DonikaVi/Swapi_React/index.html",
+    "precache-manifest.86aa9ed24c077b1e325363650b3bf900.js": "/DonikaVi/Swapi_React/precache-manifest.86aa9ed24c077b1e325363650b3bf900.js",
+    "service-worker.js": "/DonikaVi/Swapi_React/service-worker.js",
+    "static/css/main.cd79bc50.chunk.css.map": "/DonikaVi/Swapi_React/static/css/main.cd79bc50.chunk.css.map",
+    "static/js/2.27b0f46f.chunk.js.LICENSE.txt": "/DonikaVi/Swapi_React/static/js/2.27b0f46f.chunk.js.LICENSE.txt",
+    "static/media/_filters.scss": "/DonikaVi/Swapi_React/static/media/Our_starships.b81be893.svg",
+    "static/media/_mainPage.scss": "/DonikaVi/Swapi_React/static/media/loading.f3bdbc1d.svg",
+    "static/media/_footer.scss": "/DonikaVi/Swapi_React/static/media/footer_mobile.e22af916.svg",
+    "static/media/_header.scss": "/DonikaVi/Swapi_React/static/media/tr.464b1a40.svg",
+    "static/media/_starshipPage.scss": "/DonikaVi/Swapi_React/static/media/death-star.65f5e8b9.svg",
+    "static/media/filter.svg": "/DonikaVi/Swapi_React/static/media/filter.9c429b87.svg",
+    "static/media/logo.svg": "/DonikaVi/Swapi_React/static/media/logo.eff994b1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f1846db4.js",
+    "static/js/2.27b0f46f.chunk.js",
+    "static/css/main.cd79bc50.chunk.css",
+    "static/js/main.605bbe87.chunk.js"
+  ]
+}
