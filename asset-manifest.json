@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/Swapi_React/static/css/main.a7a238d5.chunk.css",
-    "main.js": "/Swapi_React/static/js/main.e722b4bb.chunk.js",
-    "main.js.map": "/Swapi_React/static/js/main.e722b4bb.chunk.js.map",
-    "runtime-main.js": "/Swapi_React/static/js/runtime-main.8e9769fd.js",
-    "runtime-main.js.map": "/Swapi_React/static/js/runtime-main.8e9769fd.js.map",
-    "static/js/2.27b0f46f.chunk.js": "/Swapi_React/static/js/2.27b0f46f.chunk.js",
-    "static/js/2.27b0f46f.chunk.js.map": "/Swapi_React/static/js/2.27b0f46f.chunk.js.map",
-    "index.html": "/Swapi_React/index.html",
-    "precache-manifest.aa0eecb1185f5cb1ea93f6cd4fbe1834.js": "/Swapi_React/precache-manifest.aa0eecb1185f5cb1ea93f6cd4fbe1834.js",
-    "service-worker.js": "/Swapi_React/service-worker.js",
-    "static/css/main.a7a238d5.chunk.css.map": "/Swapi_React/static/css/main.a7a238d5.chunk.css.map",
-    "static/js/2.27b0f46f.chunk.js.LICENSE.txt": "/Swapi_React/static/js/2.27b0f46f.chunk.js.LICENSE.txt",
-    "static/media/_filters.scss": "/Swapi_React/static/media/Our_starships.b81be893.svg",
-    "static/media/_mainPage.scss": "/Swapi_React/static/media/loading.f3bdbc1d.svg",
-    "static/media/_footer.scss": "/Swapi_React/static/media/footer_mobile.e22af916.svg",
-    "static/media/_header.scss": "/Swapi_React/static/media/tr.464b1a40.svg",
-    "static/media/_starshipPage.scss": "/Swapi_React/static/media/death-star.65f5e8b9.svg",
-    "static/media/filter.svg": "/Swapi_React/static/media/filter.9c429b87.svg",
-    "static/media/logo.svg": "/Swapi_React/static/media/logo.eff994b1.svg"
+    "main.css": "/Swapi-React/static/css/main.dbfefb92.chunk.css",
+    "main.js": "/Swapi-React/static/js/main.76ea2429.chunk.js",
+    "main.js.map": "/Swapi-React/static/js/main.76ea2429.chunk.js.map",
+    "runtime-main.js": "/Swapi-React/static/js/runtime-main.7253562b.js",
+    "runtime-main.js.map": "/Swapi-React/static/js/runtime-main.7253562b.js.map",
+    "static/js/2.27b0f46f.chunk.js": "/Swapi-React/static/js/2.27b0f46f.chunk.js",
+    "static/js/2.27b0f46f.chunk.js.map": "/Swapi-React/static/js/2.27b0f46f.chunk.js.map",
+    "index.html": "/Swapi-React/index.html",
+    "precache-manifest.959e633da351e45053d2190a8a3dcd4c.js": "/Swapi-React/precache-manifest.959e633da351e45053d2190a8a3dcd4c.js",
+    "service-worker.js": "/Swapi-React/service-worker.js",
+    "static/css/main.dbfefb92.chunk.css.map": "/Swapi-React/static/css/main.dbfefb92.chunk.css.map",
+    "static/js/2.27b0f46f.chunk.js.LICENSE.txt": "/Swapi-React/static/js/2.27b0f46f.chunk.js.LICENSE.txt",
+    "static/media/_filters.scss": "/Swapi-React/static/media/Our_starships.b81be893.svg",
+    "static/media/_mainPage.scss": "/Swapi-React/static/media/loading.f3bdbc1d.svg",
+    "static/media/_footer.scss": "/Swapi-React/static/media/footer_mobile.e22af916.svg",
+    "static/media/_header.scss": "/Swapi-React/static/media/tr.464b1a40.svg",
+    "static/media/_starshipPage.scss": "/Swapi-React/static/media/death-star.65f5e8b9.svg",
+    "static/media/filter.svg": "/Swapi-React/static/media/filter.9c429b87.svg",
+    "static/media/logo.svg": "/Swapi-React/static/media/logo.eff994b1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e9769fd.js",
+    "static/js/runtime-main.7253562b.js",
     "static/js/2.27b0f46f.chunk.js",
-    "static/css/main.a7a238d5.chunk.css",
-    "static/js/main.e722b4bb.chunk.js"
+    "static/css/main.dbfefb92.chunk.css",
+    "static/js/main.76ea2429.chunk.js"
   ]
 }
