@@ -19,22 +19,23 @@ function Starship({ item }) {
   const id = parts[parts.length - 2];
   return (
     <div className="starship col-50 col-d-33">
-      <div className="starship-top">
-        <div className="starship-small">
-          <div className="title">EX</div>
-          <div className="sub-title">MGLT-{MGLT}</div>
+      <Link to={`/starship/${id}`}>
+        <div className="starship-top">
+          <div className="starship-small">
+            <div className="title">EX</div>
+            <div className="sub-title">MGLT-{MGLT}</div>
+          </div>
         </div>
-      </div>
-      <div className="starship-info">
-        <Link to={`/starship/${id}`}>
+        <div className="starship-info">
           <p className="starship-info-p">{name}</p>
-        </Link>
-        <ul className="starship-info-list">
-          <li className="starship-info-list-li">CR: {cost_in_credits}</li>
-          <li className="starship-info-list-li">CREW: {crew}</li>
-          <li className="starship-info-list-li">PSNGS: {passengers}</li>
-        </ul>
-      </div>
+
+          <ul className="starship-info-list">
+            <li className="starship-info-list-li">CR: {cost_in_credits}</li>
+            <li className="starship-info-list-li">CREW: {crew}</li>
+            <li className="starship-info-list-li">PSNGS: {passengers}</li>
+          </ul>
+        </div>
+      </Link>
     </div>
   );
 }

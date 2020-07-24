@@ -7,7 +7,7 @@ function HeaderTop({ changeMenu, menuOpen }) {
   const [showMenuDesk, setShowMenu] = useState(false);
 
   useEffect(() => {
-    setShowMenu(width >= 1025);
+    setShowMenu(width >= 1200);
   }, [width]);
 
   const Menu = () => {

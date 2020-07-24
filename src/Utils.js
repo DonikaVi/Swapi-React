@@ -7,40 +7,87 @@
 export const filterShips = ({ props, results }) => {
   const { crew, capacity, people, filterBy } = props;
   const [min, max] = crew;
-  const [minCap, maxCap] = capacity;
-  let res = [];
-  res = results.filter((item) => {
-    const itemCap = Number.parseInt(item.cargo_capacity);
-    const capCondtion = itemCap > minCap && itemCap < maxCap;
+  let res = results.filter((item) => {
+    const capCondition = capacityCondition({ capacity, item });
+
     if (item.crew.includes("-")) {
-      const itemCrew = item.crew.split("-");
-      const [minCrew, maxCrew] = itemCrew;
-      return (
-        Number.parseInt(minCrew) >= min &&
-        Number.parseInt(maxCrew) <= max &&
-        capCondtion
-      );
+      return minMaxCrewFilter({ capCondition, item, crew });
     }
     if (item.crew.includes(",")) {
-      let value = item.crew.replace(/,/g, "");
-      value = Number.parseInt(value);
-      return value >= min && value < max && capCondtion;
+      return singleNumberCrewFilter({ crew, capCondition, item });
     }
     const value = Number.parseInt(item.crew);
 
-    return value >= min && value <= max && capCondtion;
+    return value >= min && value <= max && capCondition;
   });
 
+  // If people selected in filters
   const filterByPeopleEnabled = people.some((item) => !!item.value);
   if (filterByPeopleEnabled) {
-    const filterByPeople = people.filter((item) => !!item.value);
-    let filteredArray = [];
-    filterByPeople.forEach((item) => {
-      filteredArray.push(item.url);
-    });
-    res = res.filter((starItem) =>
-      starItem.pilots.some((r) => filteredArray.includes(r))
-    );
+    res = filterByPeople({ res, people });
   }
   return res.sort((a, b) => a[filterBy] - b[filterBy]);
+};
+
+/**
+ * Filter by selected people
+ * @param res
+ * @param people
+ * @returns {*}
+ */
+const filterByPeople = ({ res, people }) => {
+  // Get selected in filter people
+  const filterByPeople = people.filter((item) => !!item.value);
+  let filteredArray = [];
+  // Push to array urls of selected people
+  filterByPeople.forEach((item) => {
+    filteredArray.push(item.url);
+  });
+
+  return res.filter((starItem) =>
+    starItem.pilots.some((r) => filteredArray.includes(r))
+  );
+};
+/**
+ *  Capacity filter
+ * @param item
+ * @param capacity
+ * @returns {boolean|boolean}
+ */
+const capacityCondition = ({ item, capacity }) => {
+  const [minCap, maxCap] = capacity;
+  const itemCap = Number.parseInt(item.cargo_capacity);
+  return itemCap > minCap && itemCap < maxCap;
+};
+
+/**
+ * minMaxCrewFilter
+ * @param capCondition
+ * @param item
+ * @param crew
+ * @returns {*}
+ */
+const minMaxCrewFilter = ({ capCondition, item, crew }) => {
+  const [min, max] = crew;
+  const itemCrew = item.crew.split("-");
+  const [minCrew, maxCrew] = itemCrew;
+  return (
+    Number.parseInt(minCrew) >= min &&
+    Number.parseInt(maxCrew) <= max &&
+    capCondition
+  );
+};
+
+/**
+ * singleNumberCrewFilter
+ * @param item
+ * @param crew
+ * @param capCondition
+ * @returns {*}
+ */
+const singleNumberCrewFilter = ({ item, crew, capCondition }) => {
+  const [min, max] = crew;
+  let value = item.crew.replace(/,/g, "");
+  value = Number.parseInt(value);
+  return value >= min && value < max && capCondition;
 };
