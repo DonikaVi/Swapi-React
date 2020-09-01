@@ -1,7 +1,9 @@
-import React from "react";
-import Slider from "@material-ui/core/Slider";
+import React from 'react';
+import Slider from '@material-ui/core/Slider';
 
-function RangeSlider({value, handleChange, min, max}) {
+function RangeSlider({
+  value, handleChange, min, max,
+}) {
   return (
     <div className="filters-slider">
       <Slider
@@ -15,5 +17,5 @@ function RangeSlider({value, handleChange, min, max}) {
   );
 }
 
-RangeSlider.displayName = "RangeSlider";
+RangeSlider.displayName = 'RangeSlider';
 export default RangeSlider;

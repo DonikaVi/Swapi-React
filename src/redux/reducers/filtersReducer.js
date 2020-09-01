@@ -1,39 +1,44 @@
-import {APPLY_FILTERS, CHANGE_FILTER_BY, GET_PEOPLE_FILTERS} from "../constants";
+import {
+  APPLY_FILTERS,
+  CHANGE_FILTER_BY,
+  GET_PEOPLE_FILTERS,
+} from '../constants';
+
+const changePeople = (data) =>
+  data.map((item) => ({ name: item.name, value: false, url: item.url }));
 
 const initialState = {
   people: [],
   crew: [1, 100000],
   capacity: [1, 500000],
-  filterBy: 'crew'
+  filterBy: 'crew',
 };
 export default function filters(state = initialState, action) {
   switch (action.type) {
-    case GET_PEOPLE_FILTERS:
+    case GET_PEOPLE_FILTERS: {
       const { results } = action.payload;
       return {
         ...state,
         people: changePeople(results),
       };
-    case APPLY_FILTERS:
-      const {people, crew, capacity} = action.payload;
+    }
+
+    case APPLY_FILTERS: {
+      const { people, crew, capacity } = action.payload;
       return {
         ...state,
         people,
         crew,
-        capacity
-      }
+        capacity,
+      };
+    }
+
     case CHANGE_FILTER_BY:
       return {
         ...state,
-        filterBy: action.payload
-      }
+        filterBy: action.payload,
+      };
     default:
       return state;
   }
 }
-
-const changePeople = (data) => {
-  return data.map((item) => {
-    return { name: item.name, value: false, url: item.url };
-  });
-};

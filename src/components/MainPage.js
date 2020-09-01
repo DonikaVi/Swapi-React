@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import "../styles/_mainPage.scss";
-import filterIcoShow from "../styles/images/filter.svg";
-import filterClose from "../styles/images/close.svg";
-import Dropdown from "./Dropdown";
-import Starship from "./Starship";
-import Filters from "./Filters";
-import Wrapper from "./layouts/Wrapper";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import '../styles/_mainPage.scss';
+import filterIcoShow from '../styles/images/filter.svg';
+import filterClose from '../styles/images/close.svg';
+import Dropdown from './Dropdown';
+import Starship from './Starship';
+import Filters from './Filters';
+import Wrapper from './layouts/Wrapper';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import {
   getPilots,
   getStarships,
   addStarships,
   addPeopleFilters,
   changeFilterBy,
-} from "../redux/actions";
-import { filterShips } from "../Utils";
-const apiUrl = "https://swapi.dev/api";
+} from '../redux/actions';
+import filterShips from '../Utils';
+
+const apiUrl = 'https://swapi.dev/api';
 
 function MainPage(props) {
   const { width } = useWindowDimensions();
@@ -26,39 +27,8 @@ function MainPage(props) {
   const {
     starships: { results, next },
     filterBy,
+    dispatchChangeFilterBy,
   } = props;
-
-  useEffect(() => {
-    Promise.all([fetch(`${apiUrl}/people/`), fetch(`${apiUrl}/starships/`)])
-      .then(([pilots, starships]) =>
-        Promise.all([pilots.json(), starships.json()])
-      )
-      .then(([people, starshipsData]) => {
-        props.getPilots(people);
-        props.addPeopleFilters(people);
-        props.getStarships(starshipsData);
-      });
-  }, []);
-
-  useEffect(() => {
-    setShowFilter(width >= 1025);
-  }, [width]);
-
-  const viewMore = () => {
-    return (
-      <button
-        disabled={loading}
-        onClick={loadMore}
-        type="button"
-        className="view-more"
-      >
-        <div>View More</div>
-        <div
-          className={`view-more-ico ${loading ? "view-more-ico-loading" : ""}`}
-        />
-      </button>
-    );
-  };
 
   const loadMore = () => {
     setLoading(true);
@@ -68,19 +38,49 @@ function MainPage(props) {
       })
       .then((data) => {
         setLoading(false);
-        props.addStarships(data);
+        props.dispatchAddStarships(data);
       });
   };
+
+  useEffect(() => {
+    Promise.all([fetch(`${apiUrl}/people/`), fetch(`${apiUrl}/starships/`)])
+      .then(([pilots, starships]) =>
+        Promise.all([pilots.json(), starships.json()])).then(([people, starshipsData]) => {
+        props.dispatchGetPilots(people);
+        props.dispatchAddPeopleFilters(people);
+        props.dispatchGetStarships(starshipsData);
+      });
+  }, []);
+
+  useEffect(() => {
+    setShowFilter(width >= 1025);
+  }, [width]);
+
+  const viewMore = () => (
+      <button
+        role="button"
+        disabled={loading}
+        onClick={loadMore}
+        type="button"
+        className="view-more"
+      >
+        <div>View More</div>
+        <div
+          className={`view-more-ico ${loading ? 'view-more-ico-loading' : ''}`}
+        />
+      </button>
+  );
+
   const count = filterShips({ props, results });
   return (
-    <Wrapper headerText={"MAY THE FORCE BE WITH YOU"} headerClass={" "}>
+    <Wrapper headerText={'MAY THE FORCE BE WITH YOU'} headerClass={' '}>
       <div className="main-page">
         <h1 className="main-page-header">Our Starships</h1>
         <div className="main-page-filters">
           <div className="main-page-dropdown">
             <Dropdown
               filterBy={filterBy}
-              changeFilterBy={props.changeFilterBy}
+              changeFilterBy={dispatchChangeFilterBy}
             />
           </div>
           <div
@@ -108,7 +108,7 @@ function MainPage(props) {
     </Wrapper>
   );
 }
-MainPage.displayName = "MainPage";
+MainPage.displayName = 'MainPage';
 
 const mapsStateToProps = (state) => {
   return {
@@ -122,19 +122,19 @@ const mapsStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPilots: (data) => {
+    dispatchGetPilots: (data) => {
       dispatch(getPilots(data));
     },
-    getStarships: (data) => {
+    dispatchGetStarships: (data) => {
       dispatch(getStarships(data));
     },
-    addStarships: (data) => {
+    dispatchAddStarships: (data) => {
       dispatch(addStarships(data));
     },
-    addPeopleFilters: (data) => {
+    dispatchAddPeopleFilters: (data) => {
       dispatch(addPeopleFilters(data));
     },
-    changeFilterBy: (data) => {
+    dispatchChangeFilterBy: (data) => {
       dispatch(changeFilterBy(data));
     },
   };

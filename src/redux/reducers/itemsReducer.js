@@ -1,4 +1,4 @@
-import {ADD_STARSHIPS, GET_PEOPLE, GET_STARSHIP} from "../constants";
+import { ADD_STARSHIPS, GET_PEOPLE, GET_STARSHIP } from '../constants';
 
 const initialState = {
   starships: { results: [], next: null },
@@ -16,16 +16,18 @@ export default function items(state = initialState, action) {
         ...state,
         starships: action.payload,
       };
-    case ADD_STARSHIPS:
-      const {results, next} = action.payload;
-      let newState = {...state.starships};
+    case ADD_STARSHIPS: {
+      const { results, next } = action.payload;
+      const newState = { ...state.starships };
       const added = newState.results.concat(results);
       newState.results = added;
       newState.next = next;
       return {
         ...state,
-        starships: {...newState},
+        starships: { ...newState },
       };
+    }
+
     default:
       return state;
   }

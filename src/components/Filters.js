@@ -1,41 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { addPeopleFilters, applyFilters } from "../redux/actions";
-import RangeSlider from "./parts/RangeSlider";
-import "../styles/_filters.scss";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { addPeopleFilters, applyFilters } from '../redux/actions';
+import RangeSlider from './parts/RangeSlider';
+import '../styles/_filters.scss';
 
 function getAllStarwarsPeople({ props, handler }) {
-  const { pilots, addPeopleFilters } = props;
+  const { pilots, dispatchAddPeopleFilters } = props;
   handler(true);
   const numberOfPagesLeft = Math.ceil((pilots.count - 1) / 10);
-  let promises = [];
+  const promises = [];
   let people = [];
   for (let i = 1; i <= numberOfPagesLeft; i++) {
     promises.push(fetch(`https://swapi.dev/api/people?page=${i}`));
   }
   Promise.all(promises)
-    .then(function (responses) {
+    .then((responses) =>
       // Get a JSON object from each of the responses
-      return Promise.all(
-        responses.map(function (response) {
-          return response.json();
-        })
-      );
-    })
-    .then(function (response) {
+      Promise.all(
+        responses.map((response) => response.json()),
+      ))
+    .then((response) => {
       // Log the data to the console
       // You would do something with both sets of data here
       people = response.reduce(
         (acc, data) => [...acc, ...data.results],
-        people
+        people,
       );
-      addPeopleFilters({ results: people });
+      dispatchAddPeopleFilters({ results: people });
       return people;
     })
-    .catch(function (error) {
+    .catch((error) => {
       handler(false);
       // if there's an error, log it
       console.log(error);
@@ -45,7 +42,7 @@ function getAllStarwarsPeople({ props, handler }) {
 function Filters(props) {
   const [pilots, setPilots] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const { people, applyFiltersHandler, count } = props;
+  const { people, dispatchApplyFiltersHandler, count } = props;
   useEffect(() => {
     setPilots(people);
   }, [people]);
@@ -58,20 +55,21 @@ function Filters(props) {
    * @param origValue
    * @returns {*}
    */
-  const sliderChange = ({ event, newValue, handler, origValue }) => {
-    if (event.type === "touchmove" || event.type === "mousemove") {
+  const sliderChange = ({
+    event, newValue, handler, origValue,
+  }) => {
+    if (event.type === 'touchmove' || event.type === 'mousemove') {
       return handler(newValue);
-    } else {
-      const {
-        target: { value },
-      } = event;
-      if (value) {
-        const number = Number.parseInt(value);
-        if (newValue === "start") {
-          return handler([number, origValue[1]]);
-        }
-        handler([origValue[0], number]);
+    }
+    const {
+      target: { value },
+    } = event;
+    if (value) {
+      const number = Number.parseInt(value, 10);
+      if (newValue === 'start') {
+        return handler([number, origValue[1]]);
       }
+      handler([origValue[0], number]);
     }
   };
   // Crew
@@ -92,7 +90,7 @@ function Filters(props) {
   };
 
   const onApplyFiltersHandler = () => {
-    applyFiltersHandler({
+    dispatchApplyFiltersHandler({
       crew: sliderCrew,
       capacity: sliderCapacity,
       people: pilots,
@@ -106,30 +104,34 @@ function Filters(props) {
         type="button"
         className="filters-apply"
       >
-        Filters apply ({count})
+        Filters apply (
+        {count}
+        )
       </button>
       <div className="filters-pilots">
         <div className="filters-pilots-info">
           <div className="filters-pilots-title">Pilots</div>
-          <div className="filters-pilots-count">({pilots.length})</div>
+          <div className="filters-pilots-count">
+            (
+            {pilots.length}
+            )
+          </div>
         </div>
         <FormGroup>
-          {pilots.map((item) => {
-            return (
-              <FormControlLabel
-                key={item.name}
-                control={
-                  <Checkbox
-                    checked={item.value}
-                    onChange={handleChange}
-                    name={item.name}
-                    color="primary"
-                  />
-                }
-                label={item.name}
-              />
-            );
-          })}
+          {pilots.map((item) => (
+            <FormControlLabel
+              key={item.name}
+              control={(
+                <Checkbox
+                  checked={item.value}
+                  onChange={handleChange}
+                  name={item.name}
+                  color="primary"
+                />
+                )}
+              label={item.name}
+            />
+          ))}
         </FormGroup>
         {!loaded && (
           <div
@@ -147,28 +149,24 @@ function Filters(props) {
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) =>
-                sliderChange({
-                  event: e,
-                  newValue: "start",
-                  handler: setCrewValue,
-                  origValue: sliderCrew,
-                })
-              }
+              onChange={(e) => sliderChange({
+                event: e,
+                newValue: 'start',
+                handler: setCrewValue,
+                origValue: sliderCrew,
+              })}
               value={sliderCrew[0]}
             />
           </div>
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) =>
-                sliderChange({
-                  event: e,
-                  newValue: "end",
-                  handler: setCrewValue,
-                  origValue: sliderCrew,
-                })
-              }
+              onChange={(e) => sliderChange({
+                event: e,
+                newValue: 'end',
+                handler: setCrewValue,
+                origValue: sliderCrew,
+              })}
               value={sliderCrew[1]}
             />
           </div>
@@ -178,14 +176,12 @@ function Filters(props) {
             value={sliderCrew}
             min={0}
             max={500000}
-            handleChange={(event, newValue) =>
-              sliderChange({
-                origValue: sliderCrew,
-                event,
-                handler: setCrewValue,
-                newValue: newValue,
-              })
-            }
+            handleChange={(event, newValue) => sliderChange({
+              origValue: sliderCrew,
+              event,
+              handler: setCrewValue,
+              newValue,
+            })}
           />
         </div>
       </div>
@@ -195,28 +191,24 @@ function Filters(props) {
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) =>
-                sliderChange({
-                  event: e,
-                  newValue: "start",
-                  handler: setCapacityValue,
-                  origValue: sliderCapacity,
-                })
-              }
+              onChange={(e) => sliderChange({
+                event: e,
+                newValue: 'start',
+                handler: setCapacityValue,
+                origValue: sliderCapacity,
+              })}
               value={sliderCapacity[0]}
             />
           </div>
           <div className="filters-inputs-input">
             <input
               type="text"
-              onChange={(e) =>
-                sliderChange({
-                  event: e,
-                  handler: setCapacityValue,
-                  newValue: "end",
-                  origValue: sliderCapacity,
-                })
-              }
+              onChange={(e) => sliderChange({
+                event: e,
+                handler: setCapacityValue,
+                newValue: 'end',
+                origValue: sliderCapacity,
+              })}
               value={sliderCapacity[1]}
             />
           </div>
@@ -225,39 +217,33 @@ function Filters(props) {
           value={sliderCapacity}
           min={0}
           max={1000000000000}
-          handleChange={(event, newValue) =>
-            sliderChange({
-              origValue: sliderCapacity,
-              event,
-              handler: setCapacityValue,
-              newValue: newValue,
-            })
-          }
+          handleChange={(event, newValue) => sliderChange({
+            origValue: sliderCapacity,
+            event,
+            handler: setCapacityValue,
+            newValue,
+          })}
         />
       </div>
     </div>
   );
 }
-Filters.displayName = "Filters";
-const mapsStateToProps = (state) => {
-  return {
-    people: state.filters.people,
-    pilots: state.items.pilots,
-    starships: state.items.starships,
-    crew: state.filters.crew,
-    capacity: state.filters.capacity,
-  };
-};
+Filters.displayName = 'Filters';
+const mapsStateToProps = (state) => ({
+  people: state.filters.people,
+  pilots: state.items.pilots,
+  starships: state.items.starships,
+  crew: state.filters.crew,
+  capacity: state.filters.capacity,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addPeopleFilters: (data) => {
-      dispatch(addPeopleFilters(data));
-    },
-    applyFiltersHandler: (data) => {
-      dispatch(applyFilters(data));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  dispatchAddPeopleFilters: (data) => {
+    dispatch(addPeopleFilters(data));
+  },
+  dispatchApplyFiltersHandler: (data) => {
+    dispatch(applyFilters(data));
+  },
+});
 
 export default connect(mapsStateToProps, mapDispatchToProps)(Filters);

@@ -1,12 +1,12 @@
-import React from "react";
-import "../../styles/_footer.scss";
-import logo from "../../styles/images/logo.svg";
+import React from 'react';
+import '../../styles/_footer.scss';
+import logo from '../../styles/images/logo.svg';
 
 function Footer() {
   const scrollTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
   return (
@@ -43,16 +43,16 @@ function Footer() {
           <nav className="footer-menu">
             <ul className="footer-menu-list">
               <li className="footer-menu-list-item">
-                <a href="#">Hero</a>
+                <a href="/">Hero</a>
               </li>
               <li className="footer-menu-list-item">
-                <a href="#">List</a>
+                <a href="/">List</a>
               </li>
               <li className="footer-menu-list-item">
-                <a href="#">CTA Block</a>
+                <a href="/">CTA Block</a>
               </li>
               <li className="footer-menu-list-item">
-                <a href="#">Footer</a>
+                <a href="/">Footer</a>
               </li>
             </ul>
           </nav>
@@ -65,7 +65,7 @@ function Footer() {
         <button onClick={scrollTop} className="scroll-top-btn" type="button">
           Povishe pleze
         </button>
-        <a className="footer-logo" href="#">
+        <a className="footer-logo" href="/">
           <img src={logo} alt="" />
         </a>
       </div>
@@ -73,5 +73,5 @@ function Footer() {
   );
 }
 
-Footer.displayName = "Footer";
+Footer.displayName = 'Footer';
 export default Footer;

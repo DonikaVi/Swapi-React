@@ -1,11 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import Header from "../layouts/Header";
-import Footer from "../layouts/Footer";
-import { changeMenuState } from "../../redux/actions";
-import MobileMenu from "../MobileMenu";
+import React from 'react';
+import { connect } from 'react-redux';
+import Header from './Header';
+import Footer from './Footer';
+import { changeMenuState } from '../../redux/actions';
+import MobileMenu from '../MobileMenu';
 
-function Wrapper({ children, headerClass, headerText, changeMenu, menuOpen }) {
+function Wrapper({
+  children, headerClass, headerText, changeMenu, menuOpen,
+}) {
   return (
     <>
       {menuOpen ? (
@@ -25,18 +27,14 @@ function Wrapper({ children, headerClass, headerText, changeMenu, menuOpen }) {
   );
 }
 
-const mapsStateToProps = (state) => {
-  return {
-    menuOpen: state.app.menuOpen,
-  };
-};
+const mapsStateToProps = (state) => ({
+  menuOpen: state.app.menuOpen,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeMenu: () => {
-      dispatch(changeMenuState());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  changeMenu: () => {
+    dispatch(changeMenuState());
+  },
+});
 
 export default connect(mapsStateToProps, mapDispatchToProps)(Wrapper);
